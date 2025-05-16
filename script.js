@@ -1,6 +1,10 @@
 
 const myLibrary =[];
 
+let newBook = document.createElement("Button")
+newBook.innerHTML = "NEW BOOK"
+addEventListener("click",newBookOnClick)
+
 function Book(name,author){
 this.name = name;
 this.author = author
@@ -48,7 +52,31 @@ function displayBooks(){
 
 }
 
+function newBookOnClick(){
+    let box = document.getElementById("formContainer")
+
+    let form = document.createElement("form")
+
+    let nameInput = document.createElement("input")
+    let authorInput = document.createElement("input")
+    let submitButton = document.createElement("button")
+    submitButton.innerHTML = "SUBMIT"
+
+    form.appendChild(nameInput)
+    form.appendChild(authorInput)
+    form.appendChild(submitButton)
+
+    box.appendChild(form)
+
+
+}
+
+
+
+document.body.appendChild(newBook)
+
 addBookToLibrary("Book1", "Me")
 addBookToLibrary("Book2", "you")
+
 
 displayBooks();
