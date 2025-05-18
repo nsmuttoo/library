@@ -3,7 +3,7 @@ const myLibrary =[];
 
 let newBook = document.createElement("Button")
 newBook.innerHTML = "NEW BOOK"
-addEventListener("click",newBookOnClick)
+newBook.addEventListener("click",newBookOnClick)
 
 function Book(name,author){
 this.name = name;
@@ -22,6 +22,7 @@ myLibrary.push(new Book(name, author))
 
 
 function displayBooks(){
+    clearTable()
     let table = document.getElementById("mainTable")
 
     for(i=0; i<myLibrary.length; i++){
@@ -30,6 +31,14 @@ function displayBooks(){
        let title = document.createElement("td")
        let author = document.createElement("td")
        let read = document.createElement("td")
+       let removeBox = document.createElement("td")
+       let removeButton = document.createElement("button")
+       removeButton.id = myLibrary[i].id
+        removeButton.innerHTML = "REMOVE"
+
+        removeButton.addEventListener("click",removeBook)
+
+       removeBox.appendChild(removeButton)
         title.innerHTML = myLibrary[i].name
         author.innerHTML = myLibrary[i].author
 
@@ -43,6 +52,7 @@ function displayBooks(){
        row.appendChild(title)
        row.appendChild(author)
        row.appendChild(read)
+       row.appendChild(removeBox)
 
        table.appendChild(row)
        
@@ -50,17 +60,46 @@ function displayBooks(){
 
 
 
+
+
+}
+
+function removeBook(event){
+    index = 500;
+    
+    
+    for(i=0;i<myLibrary.length;i++){
+        if(this.id==myLibrary[i].id){
+            
+            index = i
+            
+        }
+    }
+    
+    for(i=index; i<myLibrary.length; i++){
+        myLibrary[i] = myLibrary[i+1]
+    }
+    myLibrary.pop();
+
+    displayBooks()
 }
 
 function newBookOnClick(){
+    clearForm();
     let box = document.getElementById("formContainer")
+    
 
     let form = document.createElement("form")
 
     let nameInput = document.createElement("input")
+
+    nameInput.id = "nameInput"
     let authorInput = document.createElement("input")
+    authorInput.id = "authorInput"
     let submitButton = document.createElement("button")
     submitButton.innerHTML = "SUBMIT"
+
+    submitButton.addEventListener("click",submitOnClick)
 
     form.appendChild(nameInput)
     form.appendChild(authorInput)
@@ -70,6 +109,35 @@ function newBookOnClick(){
 
 
 }
+function clearForm(){
+let box = document.getElementById("formContainer")
+box.innerHTML =""
+}
+
+function submitOnClick(event){
+event.preventDefault()
+
+nameInput = document.getElementById("nameInput")
+
+
+authorInput = document.getElementById("authorInput")
+
+if(nameInput.value != "" && authorInput.value != ""){
+    addBookToLibrary(nameInput.value, authorInput.value)
+}else{
+    console.log(nameInput.value)
+}
+displayBooks()
+clearForm()
+
+}
+
+function clearTable(){
+    let table = document.getElementById("mainTable")
+    table.innerHTML = ""
+}
+
+
 
 
 
