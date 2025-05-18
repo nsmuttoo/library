@@ -35,10 +35,20 @@ function displayBooks(){
        let removeButton = document.createElement("button")
        removeButton.id = myLibrary[i].id
         removeButton.innerHTML = "REMOVE"
+        
 
         removeButton.addEventListener("click",removeBook)
+        
+
+        let readBox = document.createElement("td")
+        let readButton = document.createElement("button")
+        readButton.id = myLibrary[i].id
+        readButton.innerHTML = "BOOK FINISHED"
+        readButton.addEventListener("click",readStatus)
+
 
        removeBox.appendChild(removeButton)
+       readBox.appendChild(readButton)
         title.innerHTML = myLibrary[i].name
         author.innerHTML = myLibrary[i].author
 
@@ -52,7 +62,9 @@ function displayBooks(){
        row.appendChild(title)
        row.appendChild(author)
        row.appendChild(read)
+       row.appendChild(readBox)
        row.appendChild(removeBox)
+
 
        table.appendChild(row)
        
@@ -62,6 +74,23 @@ function displayBooks(){
 
 
 
+}
+
+function readStatus(event){
+    
+for(i=0;i<myLibrary.length;i++){
+        if(this.id==myLibrary[i].id){
+            
+           if(myLibrary[i].read == 0){
+            myLibrary[i].read = 1
+           }else{
+            myLibrary[i].read = 0
+           }
+            
+            
+        }
+    }
+    displayBooks();
 }
 
 function removeBook(event){
